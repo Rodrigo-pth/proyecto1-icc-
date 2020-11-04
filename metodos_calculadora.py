@@ -1,3 +1,12 @@
+# Función Ingresar Matrices
+def IngresarMatrices():
+  print(lmatrices)
+  
+# Función Operar Matrices
+def OperarMatrices():
+  matriz_res = []
+  print(matriz_res)
+
 # Función Mostrar Matrices
 def MostrarMatrices():
   print('[1]Listar Matrices\n[2]Escoger Matriz\n[3]Finalizar')
