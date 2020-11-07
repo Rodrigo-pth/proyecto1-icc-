@@ -8,7 +8,7 @@ def OperarMatrices():
   print(matriz_res)
 
 # Función Mostrar Matrices
-def MostrarMatrices():
+def MostrarMatrices(lmatrices):
   print('[1]Listar Matrices\n[2]Escoger Matriz\n[3]Finalizar')
   opcion = int(input('Mostrar Matriz - Seleccionar opción: '))
   if opcion == 1:
