@@ -28,3 +28,4 @@ while (menu := int(input('Menú - Seleccionar opción: '))) != 4:
         MostrarMatrices(Matrix_List[indice]) if menu == 3 else Finalizar()
     else:
         print('Opción Incorrecta. Intente nuevamente')
+    print('[1]Ingresar Matrices\n[2]Operar Matrices\n[3]Mostrar Matrices\n[4]Finalizar')
