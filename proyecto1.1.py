@@ -10,22 +10,22 @@ else:
     Users_List.append((name))
     Matrix_List.append(([]))
 
-#aqui el menu
+# Calculadora de Matrices
 from metodos_calculadora import *
-from up_matrix import *
+print("BIENVENIDO A TU CALCULADORA DE MATRICES FAVORITA!")
 # Menú:
+lmatrices = [[[1, 2, 3],
+              [4, 5, 6],
+              [7, 8, 9]],
+             [[1, 2, 3],
+              [4, 5, 6],
+              [6, 7, 8]]]
 print('[1]Ingresar Matrices\n[2]Operar Matrices\n[3]Mostrar Matrices\n[4]Finalizar')
-lmatrices = [[[1, 2, 3], 
-              [4, 5, 6], 
-              [7, 8, 9]], 
-             [[1, 2, 3], 
-              [4, 5, 6], 
-              [6, 7, 8]]] #Ejemplo
-while (menu := int(input('Menú - Seleccionar opción: '))) != 4:
-    if menu in [1, 2]:
-        IngresarMatrices(Matrix_List,indice) if menu == 1 else OperarMatrices()
-    elif menu in [3, 4]:
-        MostrarMatrices(Matrix_List[indice]) if menu == 3 else Finalizar()
+while (menu := input('Menú - Seleccionar opción: ')) != '4':
+    if menu in '12':
+        IngresarMatrices(lmatrices) if menu == '1' else OperarMatrices(lmatrices)
+    elif menu in '34':
+        MostrarMatrices(lmatrices) if menu == '3' else Finalizar()
     else:
-        print('Opción Incorrecta. Intente nuevamente')
-        print('[1]Ingresar Matrices\n[2]Operar Matrices\n[3]Mostrar Matrices\n[4]Finalizar')
+        print('Opción Inexistente. Intente nuevamente')
+    print('[1]Ingresar Matrices\n[2]Operar Matrices\n[3]Mostrar Matrices\n[4]Finalizar')
