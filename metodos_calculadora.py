@@ -1,47 +1,60 @@
 # Función Ingresar Matrices
-def IngresarMatrices(lmatrices,indiceM):
-    print('[1]Ingresar Matriz en una menoria existente\n[2]Ingresar Matriz a una memoria\n[3]Salir')
-    while (opcion1 := input('Ingresar Matrices - Seleccionar opción: ')) in '12':
+from Menus import *
+
+def creaMatriz():
+    # crear matriz
+    new_matriz = [[int(j) for j in input(f"Elementos de fila {i + 1}: ").split(",")]
+                  for i in range(int(input("Ingrese el número de filas: ")))]
+    # comprobar si es una matriz
+    for f in new_matriz:
+        if len(new_matriz[0]) != len(f):
+            print("¡Vaya! parece que el numero de columnas no coincide porfavor inserte una matriz valida")
+            new_matriz = None
+            break
+    return new_matriz
+
+def IngresarMatrices(lmatrices,indiceM,L_operar=True,new_matriz = 0):
+    while (opcion1 := MenuIngresarMatrices()) != '3':
         indice = 0
-        while opcion1 == '1':
+        while opcion1 == '1' :
             print('¿Esta segur@ que desea reemplazar una memoria existente?\n[1]Si\n[2]No')
             if (opcion2 := input("Reemplazar matriz - Seleccionar opción: ")) in '12':
-                if opcion2 == '1':
-                    for i, matriz in enumerate(lmatrices[indiceM]):
-                        print(f'Matriz {i + 1}: {len(matriz)}x{len(matriz[0])}')
+                if opcion2 == '1' and MostrarMatrices(lmatrices,indiceM,2):
                     while not((indice := int(input("Reemplazar matriz - Ingrese índice: "))) in
-                              [i for i in range(1, len(lmatrices)+1)]):
+                              [i for i in range(1, len(lmatrices[indiceM])+1)]):
                         print('Indice Inexistente. Intente nuevamente')
                     lmatrices[indiceM].remove(lmatrices[indiceM][indice-1])
-                elif opcion2 == '2':
-                    IngresarMatrices(lmatrices,indiceM)
+
+                else:
+                    opcion1 = False
                 break
             else:
                 print('Opción Inexistente. Intente nuevamente')
-        new_matriz = [[int(j) for j in input(f"Elementos de fila {i + 1}: ").split(",")]
-                      for i in range(int(input("Reemplazar matriz - Número de filas: ")))]
-        for f in new_matriz:
-            if len(new_matriz[0]) != len(f):
-                print("¡Vaya! parece que el numero de columnas no coincide porfavor inserte una matriz valida")
-                new_matriz = None
-                print('[1]Ingresar Matriz en una menoria existente\n[2]Ingresar Matriz a una memoria\n[3]Salir')
-                break
-        if new_matriz:
-            lmatrices[indiceM].append(new_matriz) if opcion1 == '2' else lmatrices[indiceM].insert(indice - 1, new_matriz)
+        if opcion1 and L_operar:
+            # crear matriz
+            new_matriz = [[int(j) for j in input(f"Elementos de fila {i + 1}: ").split(",")]
+                          for  i in range(int(input("Ingrese el número de filas: ")))]
+            # comprobar si es una matriz
+            for f in new_matriz:
+                if len(new_matriz[0]) != len(f):
+                    print("¡Vaya! parece que el numero de columnas no coincide porfavor inserte una matriz valida")
+                    new_matriz = None
+                    break
+            if new_matriz:
+                lmatrices[indiceM].append(new_matriz) if opcion1 == '2' else lmatrices[indiceM].insert(indice - 1, new_matriz)
+                print("La matriz se guardo exitosamente ")
+        elif L_operar == False:
+            lmatrices[indiceM].append(new_matriz) if opcion1 == '2' else lmatrices[indiceM].insert(indice - 1,new_matriz)
             print("La matriz se guardo exitosamente ")
-            print('[1]Ingresar Matriz en una menoria existente\n[2]Ingresar Matriz a una memoria\n[3]Salir')
+
     else:
-        if opcion1 != '3':
-            print('Opción Inexistente. Intente nuevamente')
-            IngresarMatrices(lmatrices,indiceM)
+        print('Salio de Ingresar Matrices') if L_operar else print("salio sin guardar la matriz")
 
 # Función Operar Matrices
 def OperarMatrices(lmatrices,indiceM):
     if not (lmatrices[indiceM] == []):
-        print('[1]Sumar\n[2]Restar\n[3]Multiplicar\n[4]Trasponer\n[5]Salir')
-        while (opcion1 := input('Operar Matrices - Seleccionar opción: ')) in '1234':
-            for i, matriz in enumerate(lmatrices[indiceM]):
-                print(f'Matriz {i + 1}: {len(matriz)}x{len(matriz[0])}')
+        while (opcion1 := MenuOperarMatrices()) != '5':
+            MostrarMatrices(lmatrices,indiceM,2)
             indices = [i for i in range(len(lmatrices[indiceM]))]
             while not ((indice1 := int(input("Reemplazar matriz - Ingrese índice 1: "))-1) in indices):
                 print('Indice Inexistente. Intente nuevamente')
@@ -61,60 +74,39 @@ def OperarMatrices(lmatrices,indiceM):
                     matriz_res = [[matriz1[c][f] for c in range(len(matriz1[indice1]))] for f in range(len(matriz1))]
                 if matriz_res:
                     print("Las matrices se operaron exitosamente ")
-                print('[1]Guardar matriz en una memoria existente\n[2]Guardar matriz a una nueva memoria\n[3]No Guardar')
-                while (opcion1 := input('Guardar Matriz - Seleccionar opción: ')) in '12':
-                    indice = 0
-                    while opcion1 == '1':
-                        print('¿Esta segur@ que desea reemplazar una memoria existente?\n[1]Si\n[2]No')
-                        if (opcion2 := input("Reemplazar matriz - Seleccionar opción: ")) in '12':
-                            if opcion2 == '1':
-                                for i, matriz in enumerate(lmatrices[indiceM]):
-                                    print(f'Matriz {i + 1}: {len(matriz)}x{len(matriz[0])}')
-                                while not ((indice := int(input("Reemplazar matriz - Ingrese índice: "))) in
-                                           [i for i in range(1, len(lmatrices[indiceM]) + 1)]):
-                                    print('Indice Inexistente. Intente nuevamente')
-                                lmatrices[indiceM].remove(lmatrices[indiceM][indice - 1])
-                        else:
-                            print('Opción Inexistente. Intente nuevamente')
-                    lmatrices[indiceM].append(matriz_res) if opcion1 == '2' else lmatrices[indiceM].insert(indice - 1, matriz_res)
-                    print("La matriz se guardo exitosamente ")
-                    break
-                else:
-                    if opcion1 != '3':
-                        print('Opción Inexistente. Se descartó la última operación')
-                print('[1]Sumar\n[2]Restar\n[3]Multiplicar\n[4]Trasponer\n[5]Salir')
+                    for f, fila in enumerate(matriz_res):
+                        for c, columna in enumerate(fila):
+                            print(' ', matriz_res[f][c], end='')
+                        print()
+                IngresarMatrices(lmatrices,indiceM,False,matriz_res)
             else:
                 print("¡Vaya! parece que las dimensiones de ambas matrices no coincide. Seleccione dos matrices válidas")
         else:
-            if opcion1 != '5':
-                print('Opción Inexistente. Intente nuevamente')
-                OperarMatrices(lmatrices,indiceM)
+            print('Salio de Operar Matrices')
     else:
         print("¡Vaya! parece que aún no hay matrices guardadas. Ingrese 2 o más matrices")
         IngresarMatrices(lmatrices,indiceM)
 
 # Función Mostrar Matrices
-def MostrarMatrices(lmatrices,indiceM):
-    print('[1]Listar Matrices\n[2]Escoger Matriz\n[3]Finalizar')
-    while (opcion := input('Mostrar Matrices - Seleccionar opción: ')) in '12':
+def MostrarMatrices(lmatrices,indiceM,EnFMostrar=1):
+    while EnFMostrar == 2 or (opcion := MenumostrarMatrices()) != '3':
         if not(lmatrices[indiceM] == []):
             for i, matriz in enumerate(lmatrices[indiceM]):
                 print(f'Matriz {i + 1}: {len(matriz)}x{len(matriz[0])}')
-            print('[1]Listar Matrices\n[2]Escoger Matriz\n[3]Finalizar')
+            if EnFMostrar == 2:
+                return True
+            if opcion == '2':
+                matriz = int(input('Ingrese numero de Matriz: ')) - 1
+                for f, fila in enumerate(lmatrices[indiceM][matriz]):
+                    for c, columna in enumerate(fila):
+                        print(' ', lmatrices[indiceM][matriz][f][c], end='')
+                    print()
         else:
             print("¡Vaya! parece que aún no hay matrices guardadas. Ingrese una matriz")
-            IngresarMatrices(lmatrices,indiceM)
-        if opcion == '2':
-            matriz = int(input('Ingrese numero de Matriz: ')) - 1
-            for f, fila in enumerate(lmatrices[indiceM][matriz]):
-                for c, columna in enumerate(fila):
-                    print(' ', lmatrices[indiceM][matriz][f][c], end='')
-                print()
-            print('[1]Listar Matrices\n[2]Escoger Matriz\n[3]Finalizar')
+            return False
     else:
-        if opcion != '3':
-            print('Opción Inexistente. Intente nuevamente')
-            MostrarMatrices(lmatrices,indiceM)
+        print('Salio de Mostrar Matrices')
+
 
 # Función Finalizar
 def Finalizar():
