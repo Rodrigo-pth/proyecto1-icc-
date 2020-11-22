@@ -48,7 +48,7 @@ def IngresarMatrices(lmatrices,indiceM,L_operar=True,new_matriz = 0):
             print("La matriz se guardo exitosamente ")
 
     else:
-        print('Salio de Ingresar Matrices') if L_operar else print("salio sin guardar la matriz")
+        print('Salio de Ingresar Matrices') if L_operar else print("salio de guardar matrices")
 
 # Función Operar Matrices
 def OperarMatrices(lmatrices,indiceM):
