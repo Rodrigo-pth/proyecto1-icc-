@@ -22,6 +22,7 @@ while True:
     menu = input('Menú - Seleccionar opción: ')
     if menu in '12':
         IngresarMatrices(lmatrices, indiceM) if menu == '1' else OperarMatrices(lmatrices, indiceM)
+        memoria.close()
     elif menu in '34':
         MostrarMatrices(lmatrices, indiceM) if menu == '3' else Finalizar()
     else:
