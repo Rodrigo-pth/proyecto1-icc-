@@ -57,18 +57,18 @@ def OperarMatrices(lmatrices, indiceM):
                 if len(matriz1 := lmatrices[indiceM][indice1]) == len(matriz2 := lmatrices[indiceM][indice2]):
                     matriz_res = []
                     if operacion == '1':
-                        matriz_res = [[matriz1[f][c]+matriz2[f][c] for c in range(len(matriz1[indice1]))] for f in range(len(matriz1))]
+                        matriz_res = [[matriz1[f][c]+matriz2[f][c] for c in range(len(matriz1))] for f in range(len(matriz1))]
                     elif operacion == '2':
-                        matriz_res = [[matriz1[f][c]-matriz2[f][c] for c in range(len(matriz1[indice1]))] for f in range(len(matriz1))]
+                        matriz_res = [[matriz1[f][c]-matriz2[f][c] for c in range(len(matriz1))] for f in range(len(matriz1))]
                     elif operacion == '3':
                         temp = 0
                         for f in range(len(matriz1)):
-                            for c in range(len(matriz1[indice1])):
+                            for c in range(len(matriz1)):
                                 for i in range(len(matriz1)):
                                     temp += matriz1[f][i] * matriz2[i][c]
                                 matriz_res[f][c] = temp
                     elif operacion == '4':
-                        matriz_res = [[matriz1[c][f] for c in range(len(matriz1[indice1]))] for f in range(len(matriz1))]
+                        matriz_res = [[matriz1[c][f] for c in range(len(matriz1))] for f in range(len(matriz1))]
                     if not (matriz_res == []):
                         print("Las matrices se operaron exitosamente ")
                         for f, fila in enumerate(matriz_res):
