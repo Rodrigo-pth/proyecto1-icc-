@@ -29,13 +29,11 @@ def IngresarMatrices(lmatrices, indiceM, guardar=False, new_matriz=0):
             if new_matriz:
                 lmatrices[indiceM].append(new_matriz) if opcion == '2' else lmatrices[indiceM].insert(indice-1, new_matriz)
                 memoria.write(str(lmatrices))
-                memoria.close()
                 print("La matriz se guardo exitosamente ")
         else:
             if guardar:
                 lmatrices.append(new_matriz) if opcion == '2' else lmatrices.insert(indice - 1, new_matriz)
                 memoria.write(str(lmatrices))
-                memoria.close()
                 print("La matriz se guardó exitosamente ")
                 break
             if opcion == '3':
