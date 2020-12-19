@@ -108,3 +108,64 @@ def Finalizar():
     import sys
     print('Proceso finalizado! Gracias')
     sys.exit()
+
+# Laberinto
+def solve_laberinto(laberinto):
+    #Tamaño_del_laberinto
+    N = len(laberinto)
+    M = len(laberinto[0])
+    def is_safe(laberinto, x, y):
+        #Funcion utilitaria que verifica si x, y son indices validos
+        if x >= 0 and y >= 0 and x < N and y < M and laberinto[x][y] == 1 and sol[x][y] != 1:
+            return True
+        return False
+    def print_solution(sol):
+    #Funcion utilitaria para imprimir la solución de la matriz
+        for i in sol:
+            for j in i:
+                print(str(j) + " ", end = "")
+            print("")
+    #Función Recursiva utilitaria para resolver el problema del laberinto
+    def solve_laberinto_util(laberinto, x, y, sol):
+        # if (x, y is goal) return True
+        if x == N-1 and y == M-1:
+            sol[x][y] = 1
+            return True
+        #verificar si laberinto[x][y] es valido
+        if is_safe(laberinto, x, y) == True:
+            #marcar x, y como parte de la solución
+            sol[x][y] = 1
+            #movemos hacia adelante
+            if solve_laberinto_util(laberinto, x+1, y, sol) == True:
+                return True
+            #si moviendo hacia adelante no nos da la solución
+            # #entonces movemos hacia abajo
+            if solve_laberinto_util(laberinto, x, y+1, sol) == True:
+                return True
+            # hacia atras
+            if y >= 1  and solve_laberinto_util(laberinto, x, y-1, sol) == True:
+                return True
+            # hacia arriba
+            if x >= 1 and solve_laberinto_util(laberinto, x-1, y , sol) == True:
+                return True
+
+            #si ninguno de los movimientos funciona
+            # #BACKTRACK: desmarcamos x, y como parte de la solución
+            sol[x][y] = 0
+            return False
+        return False
+    # Crear a NxN 2D list
+    sol = [[0 for i in range(M)] for j in range(N)]
+    if solve_laberinto_util(laberinto, 0, 0, sol) == False:
+        print("No existe Solución")
+        return False
+    print_solution(sol)
+    return True
+Laberinto = [[1,1,1,1,1,1,0,1,1,1],
+             [0,0,0,0,0,1,1,1,0,0],
+             [1,1,1,1,0,1,0,1,0,0],
+             [1,0,0,1,1,1,0,1,1,1],
+             [1,0,0,0,0,0,0,0,0,0],
+             [1,1,1,1,1,1,1,1,1,1]]
+
+solve_laberinto(Laberinto)
