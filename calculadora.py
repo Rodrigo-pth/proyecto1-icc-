@@ -1,19 +1,20 @@
 # Calculadora de Matrices
 from funciones import *
 import json
-# Ingreso:
+
+# Iniciar Sesión
 print("BIENVENIDO A TU CALCULADORA DE MATRICES FAVORITA!")
+users = ["Administrador", "Invitado"]
 memoria = open('memoria.txt', 'r')
 lmatrices = json.loads(memoria.read())
-memoria.close()
-users = ["Administrador", "Invitado"]
 if (user := input("Ingrese su usuario: ")) in users:
     indiceM = users.index(user)
 else:
     indiceM = len(users)
     users.append(user)
     lmatrices.append([])
-# Menú
+
+# Menú Principal
 while True:
     print('[1]Ingresar Matrices\n'
           '[2]Operar Matrices\n'
